@@ -1,6 +1,7 @@
 package events;
 
 import cn.nukkit.Player;
+import cn.nukkit.Server;
 import cn.nukkit.event.EventHandler;
 import cn.nukkit.event.Listener;
 import cn.nukkit.event.player.PlayerFormRespondedEvent;
@@ -23,7 +24,11 @@ public class FormRespondedEvent implements Listener
         	FormResponseSimple response = (FormResponseSimple) event.getResponse();
         	String buttonTextString = response.getClickedButton().getText();
         	String buttonText = buttonTextString.replace("" + buttonTextString.charAt(0) + buttonTextString.charAt(1), "");
-            
+            if(buttonText.equals("Plot"))
+            {
+            	Server.getInstance().dispatchCommand(player, "ph");
+            	return;
+            }
             Level world = Main.plugin.McServer.getLevelByName(buttonText);
             
             if (world == null)
@@ -33,8 +38,16 @@ public class FormRespondedEvent implements Listener
                     player.sendMessage("&4Diese Welt konnte nicht geladen werden!");
                     return;
                 }
+                return;
             }
-            player.teleport(world.getSpawnLocation());
+            try
+            {
+            	player.teleport(world.getSpawnLocation());
+            }
+            catch(NullPointerException e)
+            {
+            	player.sendMessage("&4Die Welt wird grade resettet!");
+            }
     	}
     }
 }
