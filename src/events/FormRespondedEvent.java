@@ -26,6 +26,14 @@ public class FormRespondedEvent implements Listener
             
             Level world = Main.plugin.McServer.getLevelByName(buttonText);
             
+            if (world == null)
+            {
+                if (!Main.plugin.McServer.loadLevel(buttonText)) 
+                {
+                    player.sendMessage("&4Diese Welt konnte nicht geladen werden!");
+                    return;
+                }
+            }
             player.teleport(world.getSpawnLocation());
     	}
     }
