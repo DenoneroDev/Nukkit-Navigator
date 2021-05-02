@@ -2,6 +2,8 @@ package events;
 
 import java.util.Random;
 
+import com.intellectualcrafters.plot.PS;
+
 import Hagbrain.API;
 import cn.nukkit.Player;
 import cn.nukkit.event.EventHandler;
@@ -13,10 +15,11 @@ import general.Main;
 
 public class InteractEvent  implements Listener
 {
-    @EventHandler
-    public void on(PlayerInteractEvent event) 
+	@EventHandler
+    public void on(PlayerInteractEvent event)
     {
     	Player player = event.getPlayer();
+    	int PlayerPlotCount = PS.get().IMP.wrapPlayer(player).getPlotCount();
     	if(event.getItem().getName().equals("Compass"))
     	{
     		FormWindowSimple formOp = new FormWindowSimple(API.farbig("&bTeleportiere dich zu einer Welt"), API.farbig("&3Klicke auf den jeweiligen Knopf, um dich zu der gewünschten Welt zu Teleportieren"));
@@ -28,14 +31,28 @@ public class InteractEvent  implements Listener
             		int color = random.nextInt(9);
             		formOp.addButton(new ElementButton(API.farbig("&" + color + level.getName())));
            	 	});
-           	 	formOp.addButton(new ElementButton(API.farbig("&5Plot")));
-            	
+           	 	if(PlayerPlotCount == 1)
+           	 	{
+           	 		formOp.addButton(new ElementButton(API.farbig("&5Plot")));
+           	 	}
+           	 	if(PlayerPlotCount >= 2)
+           	 	{
+           	 		formOp.addButton(new ElementButton(API.farbig("&9Plot 2")));
+           	 	}
             	player.showFormWindow(formOp, 1);
         	}
         	else
-        	{
+        	{	
             	FormWindowSimple form = new FormWindowSimple(API.farbig("&bTeleportiere dich zu einer Welt"), API.farbig("&3Klicke auf den jeweiligen Knopf, um dich zu der gewünschten Welt zu Teleportieren"));
-            	form.addButton(new ElementButton(API.farbig("&5Plot")));
+           	 	if(PlayerPlotCount == 1)
+           	 	{
+           	 		formOp.addButton(new ElementButton(API.farbig("&5Plot")));
+           	 	}
+           	 	if(PlayerPlotCount >= 2)
+           	 	{
+           	 		formOp.addButton(new ElementButton(API.farbig("&9Plot 2")));
+           	 	}
+        		
             	form.addButton(new ElementButton(API.farbig("&1nether")));
             	form.addButton(new ElementButton(API.farbig("&3farmwelt")));
             	form.addButton(new ElementButton(API.farbig("&2stollen")));

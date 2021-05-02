@@ -26,28 +26,21 @@ public class FormRespondedEvent implements Listener
         	String buttonText = buttonTextString.replace("" + buttonTextString.charAt(0) + buttonTextString.charAt(1), "");
             if(buttonText.equals("Plot"))
             {
-            	Server.getInstance().dispatchCommand(player, "ph");
+            	Server.getInstance().dispatchCommand(player, "p h");
+            	return;
+            }
+            if(buttonText.equals("Plot 2"))
+            {
+            	Server.getInstance().dispatchCommand(player, "p h 2");
             	return;
             }
             Level world = Main.plugin.McServer.getLevelByName(buttonText);
-            
-            if (world == null)
+            if(world == null)
             {
-                if (!Main.plugin.McServer.loadLevel(buttonText)) 
-                {
-                    player.sendMessage("&4Diese Welt konnte nicht geladen werden!");
-                    return;
-                }
-                return;
+            	player.sendMessage("§4Diese Welt gibt es nicht!");
+            	return;
             }
-            try
-            {
-            	player.teleport(world.getSpawnLocation());
-            }
-            catch(NullPointerException e)
-            {
-            	player.sendMessage("&4Die Welt wird grade resettet!");
-            }
+            player.teleport(world.getSpawnLocation());
     	}
     }
 }
