@@ -46,11 +46,11 @@ public class InteractEvent  implements Listener
             	FormWindowSimple form = new FormWindowSimple(API.farbig("&bTeleportiere dich zu einer Welt"), API.farbig("&3Klicke auf den jeweiligen Knopf, um dich zu der gewünschten Welt zu Teleportieren"));
            	 	if(PlayerPlotCount == 1)
            	 	{
-           	 		formOp.addButton(new ElementButton(API.farbig("&5Plot")));
+           	 		form.addButton(new ElementButton(API.farbig("&5Plot")));
            	 	}
            	 	if(PlayerPlotCount >= 2)
            	 	{
-           	 		formOp.addButton(new ElementButton(API.farbig("&9Plot 2")));
+           	 		form.addButton(new ElementButton(API.farbig("&9Plot 2")));
            	 	}
         		
             	form.addButton(new ElementButton(API.farbig("&1nether")));
